@@ -1,8 +1,9 @@
 from core.block import ByteBlock
-from database import get_block
+from database import db, get_block
 from core.chain import Chain
 from database import db
 from core.wallet import Wallet
+
 
 
 caleb = Wallet("Caleb Kutz")

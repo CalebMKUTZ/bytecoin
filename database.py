@@ -1,7 +1,7 @@
 import pickledb
 
 
-db = pickledb.load("./tmp/bytecoin-store.db", False)
+db = pickledb.load("C:\\Users\\caleb\\Documents\\python\\bytecoin\\tmp\\bytecoin-store.db", False)
 
 
 def get_block(hash):

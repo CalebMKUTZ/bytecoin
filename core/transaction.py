@@ -1,8 +1,8 @@
 import hashlib
 from datetime import datetime
 import json
-from .block import ByteBlock
-from .chain import Chain
+from block import ByteBlock
+from chain import Chain
 
 
 chain = Chain()
@@ -37,7 +37,7 @@ class Transaction:
             'timestamp': str(self.timestamp),
             'signature': self.signature
         }
-        return json.dumps(tx_object, indent=2)
+        return json.dumps(tx_object)
     
     def tx_hash(self):
         return hashlib.sha256(self.to_json().encode()).hexdigest()
@@ -57,3 +57,15 @@ class Transaction:
         new_json = new.to_json()
         new.run_proof()
         print(new_json)
+
+    def to_object(self):
+        tx_object = {
+            'sender': self.sender.name,
+            'recipient': self.recipient.name,
+            'amount': self.amount,
+            'inputs': self.inputs,
+            'outputs': self.outputs,
+            'timestamp': str(self.timestamp),
+            'signature': self.signature
+        }
+        return tx_object

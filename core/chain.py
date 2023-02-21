@@ -1,6 +1,6 @@
 import hashlib
 import json
-from .block import ByteBlock
+from block import ByteBlock
 
 
 class Chain:
