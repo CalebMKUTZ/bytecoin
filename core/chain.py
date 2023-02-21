@@ -1,11 +1,14 @@
 import hashlib
 import json
 from block import ByteBlock
+from database import db
+import hashlib
 
 
 class Chain:
     def __init__(self):
         self.chain = [self.genesis()]
+        self.cid = hashlib.sha256(self.to_json().encode()).hexdigest()
 
     def add_block(self, block):
         self.chain.append(block)
@@ -20,3 +23,6 @@ class Chain:
     def genesis(self):
         genesis = ByteBlock("GENESIS", ["xxxxxxx"])
         return genesis
+
+    def save(self):
+        db.set(self.cid, self.to_json())

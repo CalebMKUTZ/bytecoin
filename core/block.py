@@ -18,9 +18,10 @@ class ByteBlock:
         self.nonce = 0
         self.merkle_root = self.generate_merkle(self.transactions)
         self.size = sys.getsizeof(self)
-        self.difficulty = 15
+        self.difficulty = 5
         self.difficulty_target = 2 ** (256 - self.difficulty)
         self.max_nonce = 2 ** 32
+        self.increment_difficulty_over_time()
 
     def run_proof(self):
         print(CLEAR)
@@ -31,6 +32,7 @@ class ByteBlock:
                 break
             else:
                 self.nonce += 1
+                time.sleep(0.01)
                 self.hash = self.calc_sha256()
                 print(CLEAR_RETURN)
                 print(self.hash.hexdigest())
@@ -83,5 +85,17 @@ class ByteBlock:
         }
         block_string = json.dumps(block_data, indent=2)
         return block_string
+
+    def increment_difficulty_over_time(self):
+        n_seconds = 0.0001
+        block_time = self.max_nonce / n_seconds
+        time_diff = (self.time - datetime.now()).total_seconds()
+
+        if time_diff >= block_time:
+            # Increment the difficulty if the block time is too long
+            self.difficulty += 1
+        elif self.difficulty > 1 and time_diff <= block_time / 2:
+            # Decrease the difficulty if the block time is too short
+            self.difficulty -= 1
     
     

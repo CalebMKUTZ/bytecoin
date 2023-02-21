@@ -1,3 +1,5 @@
+import json
+
 from private_key import PrivateKey
 from transaction import Transaction
 from database import db
@@ -21,3 +23,11 @@ class Wallet:
         print("transaction complete ✓")
         print(t_json)
 
+    def to_json(self):
+        wallet_object = {
+            "name": self.name,
+            "public_key": self.public_k,
+            "balance": self.balance
+        }
+        wallet_json = json.dumps(wallet_object, indent=2)
+        return wallet_json

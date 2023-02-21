@@ -57,6 +57,7 @@ class Transaction:
         new_json = new.to_json()
         new.run_proof()
         print(new_json)
+        return new
 
     def to_object(self):
         tx_object = {
